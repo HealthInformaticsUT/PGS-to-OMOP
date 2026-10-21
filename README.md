@@ -1,93 +1,158 @@
 # etl-pgs-calculations
 
+Loads polygenic score (PGS) results from pgsc_calc into the `prs_measurement`
+database table.
 
+For each trait folder, the script [load_pgs_scores.R](load_pgs_scores.R):
 
-## Getting started
+1. reads all `*.txt.gz` score files (also in sub-folders) and stacks them,
+2. maps genotype sample IDs (`vkood`) to patient IDs (`skood`) and drops samples without a mapping,
+3. strips the harmonisation suffix from the PGS ID (`PGS000001_hmPOS_GRCh37` → `PGS000001`),
+4. computes the score decile (1–10) separately for each PGS ID,
+5. adds the calculation date and appends the rows to `<db_schema>.prs_measurement`.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+The comments at the top of the script describe the process in more detail.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Requirements
 
-## Add your files
+- R 4.3 or newer
+- Packages pinned in [renv.lock](renv.lock) (DBI, RPostgres, dplyr and their dependencies)
+- Access to the PostgreSQL database (only when writing to it)
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+Install the packages once, from the repository folder:
+
+```r
+install.packages("renv")   # if not installed yet
+renv::restore()
+```
+
+## Input
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.cs.ut.ee/health-informatics/common/etl-pgs-calculations.git
-git branch -M main
-git push -uf origin main
+<input_dir>/
+  T2D/                                <- one folder per trait
+    aggregated_scores.txt.gz
+  CAD/
+    run1/aggregated_scores.txt.gz     <- all files in a trait folder are combined
+    run2/aggregated_scores.txt.gz
 ```
 
-## Integrate with your tools
+**Score files**: tab-separated pgsc_calc output with at least the columns `IID`, `PGS` and `SUM`:
 
-* [Set up project integrations](https://gitlab.cs.ut.ee/health-informatics/common/etl-pgs-calculations/-/settings/integrations)
+```
+sampleset  IID      PGS                     SUM     DENOM  AVG
+est        V000123  PGS000001_hmPOS_GRCh37  0.4312  1520   0.00028
+```
 
-## Collaborate with your team
+**Mapping** from `vkood` to `skood`. Give it either as a TSV/CSV file (`--mapping_file`)
+or as a database table (`--mapping_table=schema.table`):
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+```
+vkood    skood
+V000123  S987654
+```
 
-## Test and Deploy
+**Dates file** (optional): one calculation date per trait folder. Traits that are not
+in the file get `--default_date`. A trait with neither stops the script.
 
-Use the built-in continuous integration in GitLab.
+```
+trait  date
+T2D    2025-03-01
+```
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+## Output
 
-***
+Table `<db_schema>.prs_measurement` (default schema `pgs_calculations_work`):
 
-# Editing this README
+| Column | Content |
+|---|---|
+| `patient_id` | `skood` from the mapping |
+| `measurement_source_value` | PGS ID without the suffix |
+| `pgs_score` | `SUM` from the score file |
+| `pgs_score_percentile` | Decile 1–10 of `pgs_score` within the same PGS ID |
+| `calculation_date` | Date from the dates file, or `--default_date` |
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## Database credentials
 
-## Suggestions for a good README
+The connection settings are read from environment variables. Put them in an
+`.Renviron` file and pass its path with `--renviron`:
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+```
+DB_HOST=...
+DB_PORT=5432
+DB_NAME=...
+DB_USER=...
+DB_PASSWORD=...
+```
 
-## Name
-Choose a self-explaining name for your project.
+If your `.Renviron` uses other variable names, pass them with `--db_host_env`,
+`--db_port_env`, `--db_name_env`, `--db_user_env` and `--db_password_env`.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## How to run
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+All parameters are passed as `--name=value`.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+**1. Test run without writing to the database** (`dry_run` is `TRUE` by default).
+This checks the input, prints row counts per file and per PGS ID, and can save the
+result as CSV for checking:
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```bash
+Rscript load_pgs_scores.R \
+  --input_dir=/home/me/PRS/test \
+  --mapping_file=/home/me/vkood_skood.tsv \
+  --dates_file=/home/me/dates.tsv \
+  --output_csv_dir=/home/me/PRS/check
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+**2. Write to the database:**
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```bash
+Rscript load_pgs_scores.R \
+  --renviron=/home/me/.Renviron \
+  --input_dir=/home/me/PRS/test \
+  --mapping_file=/home/me/vkood_skood.tsv \
+  --dates_file=/home/me/dates.tsv \
+  --db_schema=pgs_calculations_work_1 \
+  --dry_run=FALSE
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Rows are appended to the table. Running the same input twice loads the rows
+twice. To replace the table contents instead, add `--overwrite=TRUE`. The first
+trait then replaces the table and the following traits are appended.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### Parameters
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+| Parameter | Default | Description |
+|---|---|---|
+| `input_dir` | — (required) | Folder with one sub-folder per trait |
+| `file_pattern` | `\.txt\.gz$` | Regex for score files inside each trait folder |
+| `pgs_suffix` | `_hmPOS_GRCh37$` | Regex removed from the PGS ID |
+| `mapping_file` | | TSV/CSV file with the ID mapping |
+| `mapping_table` | | Database table with the ID mapping (`schema.table`), used if `mapping_file` is not set |
+| `mapping_from_col` | `vkood` | Mapping column with the sample ID from the score file |
+| `mapping_to_col` | `skood` | Mapping column with the patient ID |
+| `dates_file` | | TSV/CSV file with a calculation date per trait |
+| `dates_trait_col` | `trait` | Column in the dates file with the trait folder name |
+| `dates_date_col` | `date` | Column in the dates file with the date |
+| `default_date` | | Date for traits that are not in the dates file |
+| `date_format` | `%Y-%m-%d` | Format of the dates |
+| `n_quantiles` | `10` | Number of score groups (10 = deciles) |
+| `db_schema` | `pgs_calculations_work` | Target schema |
+| `db_table` | `prs_measurement` | Target table |
+| `dry_run` | `TRUE` | `TRUE` = do not write to the database |
+| `overwrite` | `FALSE` | `TRUE` = replace the table instead of appending |
+| `output_csv_dir` | | If set, also writes `<trait>.csv` per trait here |
+| `renviron` | | `.Renviron` file with the database credentials |
+| `db_*_env` | `DB_HOST`, `DB_PORT`, … | Names of the environment variables with the connection settings |
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### Reading the log
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+For each trait the script prints:
 
-## License
-For open source projects, say how it is licensed.
+- every file it found and its row count,
+- the number of distinct `IID`s, PGS IDs and `IID` × PGS pairs, and the number of duplicate rows,
+- the number of `IID`s without a mapping, with up to 5 examples,
+- the number of rows written per PGS ID.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Only the `vkood` → `skood` mapping removes rows. If far fewer rows are written than
+read, check the "IIDs without mapping" line first.
