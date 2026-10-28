@@ -1,0 +1,100 @@
+PGS000001,2040000001,PGS scores,pgs_score,PRS77_BC Breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000001,2050000001,PGS score percentile,pgs_score_percentile,PRS77_BC Breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000002,2040000002,PGS scores,pgs_score,PRS77_ERpos ER-positive breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000002,2050000002,PGS score percentile,pgs_score_percentile,PRS77_ERpos ER-positive breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000003,2040000003,PGS scores,pgs_score,PRS77_ERneg ER-negative breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000003,2050000003,PGS score percentile,pgs_score_percentile,PRS77_ERneg ER-negative breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000004,2040000004,PGS scores,pgs_score,PRS313_BC Breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000004,2050000004,PGS score percentile,pgs_score_percentile,PRS313_BC Breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000005,2040000005,PGS scores,pgs_score,PRS313_ERpos ER-positive breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000005,2050000005,PGS score percentile,pgs_score_percentile,PRS313_ERpos ER-positive breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000006,2040000006,PGS scores,pgs_score,PRS313_ERneg ER-negative breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000006,2050000006,PGS score percentile,pgs_score_percentile,PRS313_ERneg ER-negative breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000007,2040000007,PGS scores,pgs_score,PRS3820_BC Breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000007,2050000007,PGS score percentile,pgs_score_percentile,PRS3820_BC Breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000008,2040000008,PGS scores,pgs_score,PRS3820_ERpos ER-positive breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000008,2050000008,PGS score percentile,pgs_score_percentile,PRS3820_ERpos ER-positive breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000009,2040000009,PGS scores,pgs_score,PRS3820_ERneg ER-negative breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000009,2050000009,PGS score percentile,pgs_score_percentile,PRS3820_ERneg ER-negative breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000010,2040000010,PGS scores,pgs_score,GRS27 Coronary heart disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000010,2050000010,PGS score percentile,pgs_score_percentile,GRS27 Coronary heart disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000011,2040000011,PGS scores,pgs_score,GRS50 Coronary artery disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000011,2050000011,PGS score percentile,pgs_score_percentile,GRS50 Coronary artery disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000012,2040000012,PGS scores,pgs_score,GRS49K Coronary artery disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000012,2050000012,PGS score percentile,pgs_score_percentile,GRS49K Coronary artery disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000013,2040000013,PGS scores,pgs_score,GPS_CAD Coronary artery disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000013,2050000013,PGS score percentile,pgs_score_percentile,GPS_CAD Coronary artery disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000014,2040000014,PGS scores,pgs_score,GPS_T2D Type 2 diabetes (T2D),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000014,2050000014,PGS score percentile,pgs_score_percentile,GPS_T2D Type 2 diabetes (T2D) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000015,2040000015,PGS scores,pgs_score,GPS_BC Breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000015,2050000015,PGS score percentile,pgs_score_percentile,GPS_BC Breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000016,2040000016,PGS scores,pgs_score,GPS_AF Atrial fibrillation,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000016,2050000016,PGS score percentile,pgs_score_percentile,GPS_AF Atrial fibrillation [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000017,2040000017,PGS scores,pgs_score,GPS_IBD Inflammatory bowel disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000017,2050000017,PGS score percentile,pgs_score_percentile,GPS_IBD Inflammatory bowel disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000018,2040000018,PGS scores,pgs_score,metaGRS_CAD Coronary artery disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000018,2050000018,PGS score percentile,pgs_score_percentile,metaGRS_CAD Coronary artery disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000019,2040000019,PGS scores,pgs_score,GRS_CAD Coronary artery disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000019,2050000019,PGS score percentile,pgs_score_percentile,GRS_CAD Coronary artery disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000020,2040000020,PGS scores,pgs_score,dGRS1000 Type 2 diabetes (T2D),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000020,2050000020,PGS score percentile,pgs_score_percentile,dGRS1000 Type 2 diabetes (T2D) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000021,2040000021,PGS scores,pgs_score,GRS1 Type 1 diabetes (T1D),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000021,2050000021,PGS score percentile,pgs_score_percentile,GRS1 Type 1 diabetes (T1D) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000022,2040000022,PGS scores,pgs_score,T1D_GRS Type 1 diabetes (T1D),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000022,2050000022,PGS score percentile,pgs_score_percentile,T1D_GRS Type 1 diabetes (T1D) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000023,2040000023,PGS scores,pgs_score,AA_GRS Type 1 diabetes (T1D),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000023,2050000023,PGS score percentile,pgs_score_percentile,AA_GRS Type 1 diabetes (T1D) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000024,2040000024,PGS scores,pgs_score,GRS2 Type 1 diabetes (T1D),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000024,2050000024,PGS score percentile,pgs_score_percentile,GRS2 Type 1 diabetes (T1D) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000025,2040000025,PGS scores,pgs_score,GRS Alzheimer's disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000025,2050000025,PGS score percentile,pgs_score_percentile,GRS Alzheimer's disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000026,2040000026,PGS scores,pgs_score,PHS Alzheimer's disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000026,2050000026,PGS score percentile,pgs_score_percentile,PHS Alzheimer's disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000027,2040000027,PGS scores,pgs_score,GPS_BMI Body mass index (BMI),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000027,2050000027,PGS score percentile,pgs_score_percentile,GPS_BMI Body mass index (BMI) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000028,2040000028,PGS scores,pgs_score,PRS Breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000028,2050000028,PGS score percentile,pgs_score_percentile,PRS Breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000029,2040000029,PGS scores,pgs_score,PRS_AS Breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000029,2050000029,PGS score percentile,pgs_score_percentile,PRS_AS Breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000030,2040000030,PGS scores,pgs_score,PrCa Prostate cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000030,2050000030,PGS score percentile,pgs_score_percentile,PrCa Prostate cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000031,2040000031,PGS scores,pgs_score,GRSt Type 2 diabetes (T2D),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000031,2050000031,PGS score percentile,pgs_score_percentile,GRSt Type 2 diabetes (T2D) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000032,2040000032,PGS scores,pgs_score,GRSB Type 2 diabetes (based on SNPs involved in β-cell function),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000032,2050000032,PGS score percentile,pgs_score_percentile,GRSB Type 2 diabetes (based on SNPs involved in β-cell function) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000033,2040000033,PGS scores,pgs_score,GRSIR Type 2 diabetes (based on SNPs involved in insulin resistance),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000033,2050000033,PGS score percentile,pgs_score_percentile,GRSIR Type 2 diabetes (based on SNPs involved in insulin resistance) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000034,2040000034,PGS scores,pgs_score,GRS_BMI Adult body mass index (BMI),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000034,2050000034,PGS score percentile,pgs_score_percentile,GRS_BMI Adult body mass index (BMI) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000035,2040000035,PGS scores,pgs_score,PRS_AF Atrial fibrillation,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000035,2050000035,PGS score percentile,pgs_score_percentile,PRS_AF Atrial fibrillation [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000036,2040000036,PGS scores,pgs_score,gePS_T2D Type 2 diabetes (T2D),,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000036,2050000036,PGS score percentile,pgs_score_percentile,gePS_T2D Type 2 diabetes (T2D) [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000037,2040000037,PGS scores,pgs_score,PGS_AST Asthma,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000037,2050000037,PGS score percentile,pgs_score_percentile,PGS_AST Asthma [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000038,2040000038,PGS scores,pgs_score,PRS90 Stroke,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000038,2050000038,PGS score percentile,pgs_score_percentile,PRS90 Stroke [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000039,2040000039,PGS scores,pgs_score,metaGRS_ischaemicstroke Ischemic stroke,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000039,2050000039,PGS score percentile,pgs_score_percentile,metaGRS_ischaemicstroke Ischemic stroke [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000040,2040000040,PGS scores,pgs_score,GRS_CeD Coeliac disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000040,2050000040,PGS score percentile,pgs_score_percentile,GRS_CeD Coeliac disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000041,2040000041,PGS scores,pgs_score,GRS-DQ2.5-CeD Coeliac disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000041,2050000041,PGS score percentile,pgs_score_percentile,GRS-DQ2.5-CeD Coeliac disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000042,2040000042,PGS scores,pgs_score,GRS-DQ2.5-CeD-imputed Coeliac disease,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000042,2050000042,PGS score percentile,pgs_score_percentile,GRS-DQ2.5-CeD-imputed Coeliac disease [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000043,2040000043,PGS scores,pgs_score,PRS_VTE Venous thromboembolism,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000043,2050000043,PGS score percentile,pgs_score_percentile,PRS_VTE Venous thromboembolism [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000044,2040000044,PGS scores,pgs_score,PrCa66 Prostate cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000044,2050000044,PGS score percentile,pgs_score_percentile,PrCa66 Prostate cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000045,2040000045,PGS scores,pgs_score,BCPRS_Overall Breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000045,2050000045,PGS score percentile,pgs_score_percentile,BCPRS_Overall Breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000046,2040000046,PGS scores,pgs_score,BCPRS_ER+ Estrogen receptor [ER]-positive breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000046,2050000046,PGS score percentile,pgs_score_percentile,BCPRS_ER+ Estrogen receptor [ER]-positive breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000047,2040000047,PGS scores,pgs_score,BCPRS_ER- Estrogen receptor [ER]-negative breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000047,2050000047,PGS score percentile,pgs_score_percentile,BCPRS_ER- Estrogen receptor [ER]-negative breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000048,2040000048,PGS scores,pgs_score,OCPRS_Overall Ovarian cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000048,2050000048,PGS score percentile,pgs_score_percentile,OCPRS_Overall Ovarian cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000049,2040000049,PGS scores,pgs_score,PRS103_PrCa Prostate cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000049,2050000049,PGS score percentile,pgs_score_percentile,PRS103_PrCa Prostate cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000050,2040000050,PGS scores,pgs_score,PRS44 Breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
+PGS000050,2050000050,PGS score percentile,pgs_score_percentile,PRS44 Breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false

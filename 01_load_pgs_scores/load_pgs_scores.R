@@ -8,7 +8,7 @@
 #   1. Read parameters (defaults below, overridable as --name=value).
 #   2. Connect to the database (only when writing, or when the ID mapping
 #      is read from a DB table).
-#   3. Load the vkood -> skood ID mapping and the per-trait calculation dates.
+#   3. Load the sample_code -> patient_id ID mapping and the per-trait calculation dates.
 #   4. For every trait folder under `input_dir`:
 #        a. find all score files (*.txt.gz) in the folder and its sub-folders,
 #        b. read and stack them into one table,
@@ -29,9 +29,9 @@
 #   sampleset  IID      PGS                       SUM      DENOM  AVG
 #   est        V000123  PGS000001_hmPOS_GRCh37    0.4312   1520   0.00028
 #
-# Mapping file (vkood = genotype sample ID, skood = patient ID):
-#   vkood    skood
-#   V000123  S987654
+# Mapping file (sample_code = genotype sample ID in the IID column, patient_id = patient ID):
+#   sample_code  patient_id
+#   V000123      S987654
 #
 # Dates file (optional, one calculation date per trait folder):
 #   trait  date
@@ -42,7 +42,7 @@
 #   patient_id  measurement_source_value  pgs_score  pgs_score_percentile  calculation_date
 #   S987654     PGS000001                 0.4312     7                     2025-03-01
 #
-#   patient_id                skood from the mapping (samples without one are dropped)
+#   patient_id                from the mapping (samples without one are dropped)
 #   measurement_source_value  PGS id without the harmonisation suffix
 #   pgs_score                 SUM column of the score file
 #   pgs_score_percentile      decile 1..10 of pgs_score within the same PGS id
@@ -50,8 +50,8 @@
 #
 # USAGE
 # -----
-#   Rscript load_pgs_scores.R --input_dir=/home/me/PRS/test \
-#     --mapping_file=/home/me/vkood_skood.tsv --dates_file=/home/me/dates.tsv \
+#   Rscript 01_load_pgs_scores/load_pgs_scores.R --input_dir=/home/me/PRS/test \
+#     --mapping_file=/home/me/id_mapping.tsv --dates_file=/home/me/dates.tsv \
 #     --db_schema=pgs_calculations_work_1 --dry_run=FALSE
 #
 # Database credentials are read from environment variables (see db_*_env below),
@@ -75,11 +75,11 @@ params <- list(
   file_pattern      = "\\.txt\\.gz$",         # score files to pick up inside each trait folder
   pgs_suffix        = "_hmPOS_GRCh37$",       # regex stripped from the PGS id
 
-  # vkood -> skood mapping: either a TSV/CSV file or a DB table (schema.table)
+  # sample_code -> patient_id mapping: either a TSV/CSV file or a DB table (schema.table)
   mapping_file      = "",
   mapping_table     = "",
-  mapping_from_col  = "vkood",
-  mapping_to_col    = "skood",
+  mapping_from_col  = "sample_code",
+  mapping_to_col    = "patient_id",
 
   # Calculation date: per-trait from dates_file (columns: trait, date), else default_date
   dates_file        = "",
@@ -166,9 +166,9 @@ connect_db <- function(params) {
 
 # ---- 3. ID mapping and calculation dates ------------------------------------
 
-# Load the vkood -> skood mapping from a file or a DB table and return a
-# two-column table (vkood, skood): rows with an empty ID are dropped and each
-# vkood is kept once, so the join in transform_pgs() never duplicates rows.
+# Load the sample_code -> patient_id mapping from a file or a DB table and return a
+# two-column table (sample_code, patient_id): rows with an empty ID are dropped and each
+# sample_code is kept once, so the join in transform_pgs() never duplicates rows.
 load_mapping <- function(params, db) {
   if (params$mapping_file != "") {
     mapping <- read_delim_auto(params$mapping_file)
@@ -188,10 +188,10 @@ load_mapping <- function(params, db) {
   if (length(missing) > 0) stop("Mapping is missing column(s): ", paste(missing, collapse = ", "))
 
   mapping %>%
-    transmute(vkood = as.character(.data[[params$mapping_from_col]]),
-              skood = as.character(.data[[params$mapping_to_col]])) %>%
-    filter(!is.na(vkood), !is.na(skood)) %>%
-    distinct(vkood, .keep_all = TRUE)
+    transmute(sample_code = as.character(.data[[params$mapping_from_col]]),
+              patient_id = as.character(.data[[params$mapping_to_col]])) %>%
+    filter(!is.na(sample_code), !is.na(patient_id)) %>%
+    distinct(sample_code, .keep_all = TRUE)
 }
 
 # Load the dates file as a named vector: trait folder name -> date string.
@@ -215,12 +215,12 @@ trait_date <- function(trait_name, dates, params) {
 # ---- 4c. Logging -------------------------------------------------------------
 
 # Print where input rows go: distinct samples/PGS ids, duplicates and unmapped ids.
-# Only the vkood -> skood join removes rows, so these numbers explain the
+# Only the sample_code -> patient_id join removes rows, so these numbers explain the
 # difference between input rows and rows written.
 log_input_summary <- function(pgs_data, mapping) {
   iid <- as.character(pgs_data$IID)
   n_pairs <- nrow(distinct(pgs_data, IID, PGS))
-  unmapped <- unique(iid[!iid %in% mapping$vkood])
+  unmapped <- unique(iid[!iid %in% mapping$sample_code])
   cat("   distinct IID:", length(unique(iid)),
       "| distinct PGS:", length(unique(pgs_data$PGS)),
       "| distinct IID x PGS:", n_pairs,
@@ -261,17 +261,17 @@ transform_pgs <- function(pgs_data, mapping, calculation_date, params) {
            SUM = as.numeric(SUM)) %>%
     # 1-2, 6) drop sampleset, DENOM and AVG (keep only what we need)
     select(IID, PGS, SUM) %>%
-    # 3-4) map vkood -> skood, drop unmapped
+    # 3-4) map sample_code -> patient_id, drop unmapped
     #      (the only step that removes rows)
-    inner_join(mapping, by = c("IID" = "vkood")) %>%
+    inner_join(mapping, by = c("IID" = "sample_code")) %>%
     # 7) score percentile group, computed separately for each PGS
     #    and only over the mapped patients
     group_by(PGS) %>%
     mutate(pgs_score_percentile = quantile_group(SUM, params$n_quantiles)) %>%
     ungroup() %>%
-    # 5, 8, 9) final column names/order; drops IID (vkood)
+    # 5, 8, 9) final column names/order; drops IID (sample_code)
     #          and adds the calculation date
-    transmute(patient_id               = skood,
+    transmute(patient_id,
               measurement_source_value = PGS,
               pgs_score                = SUM,
               pgs_score_percentile,
@@ -310,7 +310,7 @@ if (!is.null(db)) on.exit(DBI::dbDisconnect(db), add = TRUE)
 # 3) Lookups shared by all traits
 mapping <- load_mapping(params, db)
 dates <- load_dates(params)
-cat("Loaded", nrow(mapping), "vkood -> skood mappings\n")
+cat("Loaded", nrow(mapping), "sample_code -> patient_id mappings\n")
 
 # 4) Every direct sub-folder of input_dir is one trait
 subject_folders <- list.dirs(params$input_dir, recursive = FALSE)
