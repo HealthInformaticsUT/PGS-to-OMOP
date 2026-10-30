@@ -25,10 +25,10 @@ INSERT INTO measurement
     measurement_source_concept_id,
     --unit_source_value,
     --unit_source_concept_id,
-    value_source_value,
+    value_source_value
     --measurement_event_id,
     --meas_event_field_id,
-    datasource)
+    )
 SELECT DISTINCT
        pe.person_id                                                 as person_id,
        map.target_concept_id                                        as measurement_concept_id,
@@ -39,8 +39,7 @@ SELECT DISTINCT
        pm.pgs_score::numeric                                        as value_as_number,
        pm.measurement_source_value                                  as measurement_source_value,
        map.source_concept_id                                        as measurement_source_concept_id,
-       pm.pgs_score                                                 as value_source_value,
-       'pgs_calculations'                                           as datasource
+       pm.pgs_score                                                 as value_source_value
 FROM
 	:pgs_calculations.prs_measurement pm
 INNER JOIN --add the person_id from the person table, because we need to have the person in the OHDSI model to be able to add the measurement
@@ -77,10 +76,10 @@ INSERT INTO measurement
     measurement_source_concept_id,
     --unit_source_value,
     --unit_source_concept_id,
-    value_source_value,
+    value_source_value
     --measurement_event_id,
-    --meas_event_field_id,
-    datasource)
+    --meas_event_field_id
+    )
 SELECT DISTINCT
        pe.person_id                                                 as person_id,
        map.target_concept_id                                        as measurement_concept_id,
@@ -90,8 +89,7 @@ SELECT DISTINCT
        pm.pgs_score_percentile::numeric                             as value_as_number,
        pm.measurement_source_value                                  as measurement_source_value,
        map.source_concept_id                                        as measurement_source_concept_id,
-       pm.pgs_score_percentile                                      as value_source_value,
-       'pgs_calculations'                                           as datasource
+       pm.pgs_score_percentile                                      as value_source_value
 FROM
 	:pgs_calculations.prs_measurement pm
 INNER JOIN --inner join, sest meid ei huvita isikud, keda OHDSI mudelisse ei kantud
