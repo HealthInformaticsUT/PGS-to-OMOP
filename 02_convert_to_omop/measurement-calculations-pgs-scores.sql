@@ -32,8 +32,8 @@ INSERT INTO measurement
 SELECT DISTINCT
        pe.person_id                                                 as person_id,
        map.target_concept_id                                        as measurement_concept_id,
-       GREATEST(:observation_time_start, pe.birth_datetime::date)   as measurement_date, --basically the observation_period_start_date
-       GREATEST(:observation_time_start, pe.birth_datetime::date)   as measurement_datetime, --basically the observation_period_start_date
+       GREATEST(:observation_time_start, pe.birth_datetime::date)   as measurement_date, --basically the observation_period_start_date. This depends on the datasource.
+       GREATEST(:observation_time_start, pe.birth_datetime::date)   as measurement_datetime, --basically the observation_period_start_date. This depends on the datasource.
        32880                                                        as measurement_type_concept_id, --	Standard algorithm
        4172703                                                      as operator_concept_id, --4172703 refers to "="
        pm.pgs_score::numeric                                        as value_as_number,
@@ -83,8 +83,8 @@ INSERT INTO measurement
 SELECT DISTINCT
        pe.person_id                                                 as person_id,
        map.target_concept_id                                        as measurement_concept_id,
-       GREATEST(:observation_time_start, pe.birth_datetime::date)   as measurement_date,
-       GREATEST(:observation_time_start, pe.birth_datetime::date)   as measurement_datetime,
+       GREATEST(:observation_time_start, pe.birth_datetime::date)   as measurement_date, --basically the observation_period_start_date. This depends on the datasource.
+       GREATEST(:observation_time_start, pe.birth_datetime::date)   as measurement_datetime, --basically the observation_period_start_date. This depends on the datasource.
        32880                                                        as measurement_type_concept_id, --	Standard algorithm
        pm.pgs_score_percentile::numeric                             as value_as_number,
        pm.measurement_source_value                                  as measurement_source_value,
