@@ -73,7 +73,6 @@ Rows in `<ohdsi>.measurement`:
 | `value_source_value` | Same value as text |
 | `measurement_source_value` | PGS ID, e.g. `PGS000001` |
 | `measurement_source_concept_id` | `source_to_concept_map.source_concept_id` |
-| `datasource` | `'pgs_calculations'` (custom column, not in the standard OMOP CDM) |
 
 ## How to run
 
