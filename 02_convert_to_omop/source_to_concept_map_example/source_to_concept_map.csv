@@ -1,3 +1,4 @@
+source_code,source_concept_id,source_vocabulary_id,est_source_code_type,source_code_description,est_target_concept_name,target_concept_id,target_vocabulary_id,est_target_domain,est_target_concept_class_id,est_extension,est_related_diagnosis,valid_start_date,valid_end_date,invalid_reason,est_maps_to_value
 PGS000001,2040000001,PGS scores,pgs_score,PRS77_BC Breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
 PGS000001,2050000001,PGS score percentile,pgs_score_percentile,PRS77_BC Breast cancer [Percentile],,0,None,,,,,2026-09-18,2099-12-31,,false
 PGS000002,2040000002,PGS scores,pgs_score,PRS77_ERpos ER-positive breast cancer,,0,None,,,,,2026-09-18,2099-12-31,,false
